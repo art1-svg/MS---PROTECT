@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Intake Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        }
+        h1, h2 {
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        h1 {
+            font-size: 2.25rem; /* text-4xl */
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.875rem; /* text-3xl */
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #475569;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem; /* rounded-lg */
+            background-color: #f8fafc;
+            font-size: 1rem;
+            color: #334155;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6; /* blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* ring-2 ring-blue-500/20 */
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .radio-group label, .checkbox-group label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        .radio-group input[type="radio"], .checkbox-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+            width: auto;
+            margin-bottom: 0;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #2563eb; /* blue-700 */
+            color: #ffffff;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+            font-size: 1.125rem; /* text-lg */
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        button:hover {
+            background-color: #1d4ed8; /* blue-800 */
+            transform: translateY(-1px);
+        }
+        .language-switcher {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .language-switcher select {
+            width: auto;
+            display: inline-block;
+            margin-left: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .text-section {
+            background-color: #f1f5f9; /* slate-100 */
+            padding: 1.5rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .text-section p {
+            margin-bottom: 0.75rem;
+        }
+        .text-section ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-switcher">
+            <label for="language-select" class="text-lg font-semibold">Select Language:</label>
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="zh">中文 (Mandarin)</option>
+                <option value="ko">한국어 (Korean)</option>
+                <option value="ja">日本語 (Japanese)</option>
+                <option value="ar">العربية (Arabic)</option>
+            </select>
+        </div>
+
+        <form id="intakeForm">
+            <h1 data-lang-key="formTitle">Legal Intake Form</h1>
+
+            <section id="personalInfo">
+                <h2 data-lang-key="personalInfoTitle">Personal Information</h2>
+                <div class="form-group">
+                    <label for="fullName" data-lang-key="fullNameLabel">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="dob" data-lang-key="dobLabel">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="address" data-lang-key="addressLabel">Address:</label>
+                    <input type="text" id="address" name="address" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="phone" data-lang-key="phoneLabel">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="email" data-lang-key="emailLabel">Email Address:</label>
+                    <input type="email" id="email" name="email" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="occupation" data-lang-key="occupationLabel">Occupation:</label>
+                    <input type="text" id="occupation" name="occupation" class="rounded-lg">
+                </div>
+            </section>
+
+            <section id="debtInfo">
+                <h2 data-lang-key="debtInfoTitle">Debt Information</h2>
+                <div class="form-group radio-group">
+                    <label data-lang-key="oweDebtQuestion">Do you owe debt?</label>
+                    <div>
+                        <label><input type="radio" name="oweDebt" value="yes" class="rounded-md"> <span data-lang-key="yes">Yes</span></label>
+                        <label><input type="radio" name="oweDebt" value="no" class="rounded-md"> <span data-lang-key="no">No</span></label>
+                    </div>
+                </div>
+                <div class="form-group radio-group">
+                    <label data-lang-key="actionAgainstYouQuestion">Is there any legal action against you (e.g., lawsuit, garnishment)?</label>
+                    <div>
+                        <label><input type="radio" name="actionAgainstYou" value="yes" class="rounded-md"> <span data-lang-key="yes">Yes</span></label>
+                        <label><input type="radio" name="actionAgainstYou" value="no" class="rounded-md"> <span data-lang-key="no">No</span></label>
+                    </div>
+                </div>
+                <div class="form-group radio-group">
+                    <label data-lang-key="judgmentEnteredQuestion">Has a judgment been entered against you?</label>
+                    <div>
+                        <label><input type="radio" name="judgmentEntered" value="yes" class="rounded-md"> <span data-lang-key="yes">Yes</span></label>
+                        <label><input type="radio" name="judgmentEntered" value="no" class="rounded-md"> <span data-lang-key="no">No</span></label>
+                    </div>
+                </div>
+                <div class="form-group radio-group">
+                    <label data-lang-key="debtCollectionNoticeQuestion">Do you have a debt collection notice?</label>
+                    <div>
+                        <label><input type="radio" name="debtCollectionNotice" value="yes" class="rounded-md"> <span data-lang-key="yes">Yes</span></label>
+                        <label><input type="radio" name="debtCollectionNotice" value="no" class="rounded-md"> <span data-lang-key="no">No</span></label>
+                    </div>
+                </div>
+                <div class="form-group radio-group">
+                    <label data-lang-key="paymentPlanQuestion">Are you able to enter into a payment plan?</label>
+                    <div>
+                        <label><input type="radio" name="paymentPlan" value="yes" class="rounded-md"> <span data-lang-key="yes">Yes</span></label>
+                        <label><input type="radio" name="paymentPlan" value="no" class="rounded-md"> <span data-lang-key="no">No</span></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="paymentPlanAmount" data-lang-key="paymentPlanAmountLabel">If yes, how much per month?</label>
+                    <input type="text" id="paymentPlanAmount" name="paymentPlanAmount" placeholder="$" class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="otherDebt" data-lang-key="otherDebtLabel">Do you owe other debt? Please describe:</label>
+                    <textarea id="otherDebt" name="otherDebt" class="rounded-lg"></textarea>
+                </div>
+            </section>
+
+            <section id="retainerAgreement">
+                <h2 data-lang-key="retainerAgreementTitle">Retainer Agreement (Consumer Example)</h2>
+                <div class="text-section">
+                    <p id="retainerIntro" data-lang-key="retainerIntro">This Retainer Agreement ("Agreement") is made between [Law Firm Name] ("Attorney") and <span id="clientNamePlaceholder" class="font-bold">[Client Full Name]</span> ("Client") on this <span id="currentDatePlaceholder" class="font-bold"></span>.</p>
+                    <h3 class="font-semibold text-lg mb-2" data-lang-key="scopeOfServicesTitle">1. Scope of Services:</h3>
+                    <p data-lang-key="scopeOfServicesContent">Attorney agrees to provide legal services to Client concerning the matter of debt resolution and related legal actions. This may include, but is not limited to, reviewing debt collection notices, negotiating with creditors, and representing Client in court if necessary. This agreement does not cover bankruptcy proceedings unless specifically agreed upon in writing.</p>
+                    <h3 class="font-semibold text-lg mb-2" data-lang-key="attorneyFeesTitle">2. Attorney Fees:</h3>
+                    <p data-lang-key="attorneyFeesContent1">Client agrees to pay Attorney a non-refundable retainer fee of <span class="font-bold" data-lang-key="retainerFeeAmount"></span> upon signing this Agreement. This retainer will be applied against hourly fees for services rendered at the rate of <span class="font-bold" data-lang-key="hourlyRate"></span> per hour for attorney time and <span class="font-bold" data-lang-key="paralegalRate"></span> per hour for paralegal time.</p>
+                    <p data-lang-key="attorneyFeesContent2">Client will be billed monthly for services rendered and costs incurred. Payments are due upon receipt of the invoice. Interest may be charged on overdue balances at the rate of <span class="font-bold" data-lang-key="interestRate"></span> per annum.</p>
+                    <h3 class="font-semibold text-lg mb-2" data-lang-key="costsAndExpensesTitle">3. Costs and Expenses:</h3>
+                    <p data-lang-key="costsAndExpensesContent">Client is responsible for all costs and expenses incurred in connection with this matter, including but not limited to filing fees, court costs, deposition costs, expert witness fees, and travel expenses. Attorney will seek Client's approval for any significant expenses before incurring them.</p>
+                    <h3 class="font-semibold text-lg mb-2" data-lang-key="terminationTitle">4. Termination:</h3>
+                    <p data-lang-key="terminationContent">Either party may terminate this Agreement at any time by providing written notice. Upon termination, Client will be responsible for all fees and costs incurred up to the date of termination. Any unearned portion of the retainer will be refunded to Client.</p>
+                    <h3 class="font-semibold text-lg mb-2" data-lang-key="disclaimerTitle">5. Disclaimer:</h3>
+                    <p data-lang-key="disclaimerContent">Attorney makes no guarantees regarding the outcome of this matter. All statements made by Attorney are opinions only.</p>
+                    <p data-lang-key="agreementAcknowledgement">By signing below, Client acknowledges that they have read, understood, and agreed to the terms of this Retainer Agreement.</p>
+                </div>
+                <div class="form-group">
+                    <label for="retainerSignature" data-lang-key="clientSignatureLabel">Client Signature:</label>
+                    <input type="text" id="retainerSignature" name="retainerSignature" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="retainerDate" data-lang-key="dateLabel">Date:</label>
+                    <input type="date" id="retainerDate" name="retainerDate" required class="rounded-lg">
+                </div>
+            </section>
+
+            <section id="creditReportAuth">
+                <h2 data-lang-key="creditReportAuthTitle">Authorization to Request Credit Report</h2>
+                <div class="text-section">
+                    <p id="creditReportAuthIntro" data-lang-key="creditReportAuthIntro">I, <span id="authClientNamePlaceholder" class="font-bold">[Client Full Name]</span>, hereby authorize [Law Firm Name] to obtain a copy of my credit report from one or more consumer reporting agencies for the purpose of assessing my financial situation related to debt resolution.</p>
+                    <p data-lang-key="creditReportAuthPurpose">I understand that this authorization is for the sole purpose of providing legal services to me and will not be used for any other purpose.</p>
+                    <p data-lang-key="creditReportAuthRelease">I release [Law Firm Name] and any consumer reporting agency from any liability for obtaining or providing such information.</p>
+                    <p data-lang-key="creditReportAuthConsent">This authorization shall remain in effect for the duration of my representation by [Law Firm Name] or until revoked by me in writing.</p>
+                </div>
+                <div class="form-group">
+                    <label for="creditAuthSignature" data-lang-key="clientSignatureLabel">Client Signature:</label>
+                    <input type="text" id="creditAuthSignature" name="creditAuthSignature" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="creditAuthDate" data-lang-key="dateLabel">Date:</label>
+                    <input type="date" id="creditAuthDate" name="creditAuthDate" required class="rounded-lg">
+                </div>
+            </section>
+
+            <section id="socialMediaWaiver">
+                <h2 data-lang-key="socialMediaWaiverTitle">Social Media Waiver and Authorization Form</h2>
+                <div class="text-section">
+                    <p id="socialMediaWaiverIntro" data-lang-key="socialMediaWaiverIntro">I, <span id="socialClientNamePlaceholder" class="font-bold">[Client Full Name]</span>, understand that social media (e.g., Facebook, X (formerly Twitter), Instagram, LinkedIn, etc.) can be a source of information that may be relevant to my legal matter.</p>
+                    <p data-lang-key="socialMediaWaiverWarning">I acknowledge that any information I post or that is posted about me on social media platforms, including photos, videos, and comments, may be discoverable and used as evidence in my legal case.</p>
+                    <p data-lang-key="socialMediaWaiverRecommendation">I understand that it is strongly recommended that I refrain from posting any information about my case, my financial situation, or my activities on social media while my case is pending. I also understand that I should review my privacy settings on all social media accounts to ensure maximum privacy.</p>
+                    <p data-lang-key="socialMediaWaiverAuthorization">I authorize [Law Firm Name] to review my publicly available social media profiles and content if deemed necessary for my legal representation. I understand that [Law Firm Name] will not attempt to gain unauthorized access to my private social media accounts.</p>
+                    <p data-lang-key="socialMediaWaiverRelease">I release [Law Firm Name] from any liability for any adverse consequences that may arise from information found on my social media profiles.</p>
+                </div>
+                <div class="form-group">
+                    <label for="socialMediaSignature" data-lang-key="clientSignatureLabel">Client Signature:</label>
+                    <input type="text" id="socialMediaSignature" name="socialMediaSignature" required class="rounded-lg">
+                </div>
+                <div class="form-group">
+                    <label for="socialMediaDate" data-lang-key="dateLabel">Date:</label>
+                    <input type="date" id="socialMediaDate" name="socialMediaDate" required class="rounded-lg">
+                </div>
+            </section>
+
+            <button type="submit" class="rounded-lg" data-lang-key="submitButton">Submit Form</button>
+        </form>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                formTitle: "Legal Intake Form",
+                personalInfoTitle: "Personal Information",
+                fullNameLabel: "Full Name:",
+                dobLabel: "Date of Birth:",
+                addressLabel: "Address:",
+                phoneLabel: "Phone Number:",
+                emailLabel: "Email Address:",
+                occupationLabel: "Occupation:",
+                debtInfoTitle: "Debt Information",
+                oweDebtQuestion: "Do you owe debt?",
+                actionAgainstYouQuestion: "Is there any legal action against you (e.g., lawsuit, garnishment)?",
+                judgmentEnteredQuestion: "Has a judgment been entered against you?",
+                debtCollectionNoticeQuestion: "Do you have a debt collection notice?",
+                paymentPlanQuestion: "Are you able to enter into a payment plan?",
+                paymentPlanAmountLabel: "If yes, how much per month?",
+                otherDebtLabel: "Do you owe other debt? Please describe:",
+                retainerAgreementTitle: "Retainer Agreement (Consumer Example)",
+                retainerIntro: "This Retainer Agreement (\"Agreement\") is made between [Law Firm Name] (\"Attorney\") and <span id=\"clientNamePlaceholder\" class=\"font-bold\">[Client Full Name]</span> (\"Client\") on this <span id=\"currentDatePlaceholder\" class=\"font-bold\"></span>.",
+                scopeOfServicesTitle: "1. Scope of Services:",
+                scopeOfServicesContent: "Attorney agrees to provide legal services to Client concerning the matter of debt resolution and related legal actions. This may include, but is not limited to, reviewing debt collection notices, negotiating with creditors, and representing Client in court if necessary. This agreement does not cover bankruptcy proceedings unless specifically agreed upon in writing.",
+                attorneyFeesTitle: "2. Attorney Fees:",
+                attorneyFeesContent1: "Client agrees to pay Attorney a non-refundable retainer fee of <span class=\"font-bold\">$500.00</span> upon signing this Agreement. This retainer will be applied against hourly fees for services rendered at the rate of <span class=\"font-bold\">$250.00</span> per hour for attorney time and <span class=\"font-bold\">$100.00</span> per hour for paralegal time.",
+                attorneyFeesContent2: "Client will be billed monthly for services rendered and costs incurred. Payments are due upon receipt of the invoice. Interest may be charged on overdue balances at the rate of <span class=\"font-bold\">1.5%</span> per annum.",
+                costsAndExpensesTitle: "3. Costs and Expenses:",
+                costsAndExpensesContent: "Client is responsible for all costs and expenses incurred in connection with this matter, including but not limited to filing fees, court costs, deposition costs, expert witness fees, and travel expenses. Attorney will seek Client's approval for any significant expenses before incurring them.",
+                terminationTitle: "4. Termination:",
+                terminationContent: "Either party may terminate this Agreement at any time by providing written notice. Upon termination, Client will be responsible for all fees and costs incurred up to the date of termination. Any unearned portion of the retainer will be refunded to Client.",
+                disclaimerTitle: "5. Disclaimer:",
+                disclaimerContent: "Attorney makes no guarantees regarding the outcome of this matter. All statements made by Attorney are opinions only.",
+                agreementAcknowledgement: "By signing below, Client acknowledges that they have read, understood, and agreed to the terms of this Retainer Agreement.",
+                clientSignatureLabel: "Client Signature:",
+                dateLabel: "Date:",
+                creditReportAuthTitle: "Authorization to Request Credit Report",
+                creditReportAuthIntro: "I, <span id=\"authClientNamePlaceholder\" class=\"font-bold\">[Client Full Name]</span>, hereby authorize [Law Firm Name] to obtain a copy of my credit report from one or more consumer reporting agencies for the purpose of assessing my financial situation related to debt resolution.",
+                creditReportAuthPurpose: "I understand that this authorization is for the sole purpose of providing legal services to me and will not be used for any other purpose.",
+                creditReportAuthRelease: "I release [Law Firm Name] and any consumer reporting agency from any liability for obtaining or providing such information.",
+                creditReportAuthConsent: "This authorization shall remain in effect for the duration of my representation by [Law Firm Name] or until revoked by me in writing.",
+                socialMediaWaiverTitle: "Social Media Waiver and Authorization Form",
+                socialMediaWaiverIntro: "I, <span id=\"socialClientNamePlaceholder\" class=\"font-bold\">[Client Full Name]</span>, understand that social media (e.g., Facebook, X (formerly Twitter), Instagram, LinkedIn, etc.) can be a source of information that may be relevant to my legal matter.",
+                socialMediaWaiverWarning: "I acknowledge that any information I post or that is posted about me on social media platforms, including photos, videos, and comments, may be discoverable and used as evidence in my legal case.",
+                socialMediaWaiverRecommendation: "I understand that it is strongly recommended that I refrain from posting any information about my case, my financial situation, or my activities on social media while my case is pending. I also understand that I should review my privacy settings on all social media accounts to ensure maximum privacy.",
+                socialMediaWaiverAuthorization: "I authorize [Law Firm Name] to review my publicly available social media profiles and content if deemed necessary for my legal representation. I understand that [Law Firm Name] will not attempt to gain unauthorized access to my private social media accounts.",
+                socialMediaWaiverRelease: "I release [Law Firm Name] from any liability for any adverse consequences that may arise from information found on my social media profiles.",
+                submitButton: "Submit Form",
+                yes: "Yes",
+                no: "No",
+                retainerFeeAmount: "$500.00",
+                hourlyRate: "$250.00",
+                paralegalRate: "$100.00",
+                interestRate: "1.5%"
+            },
+            es: {
+                formTitle: "Formulario de Admisión Legal",
+                personalInfoTitle: "Información Personal",
+                fullNameLabel: "Nombre Completo:",
+                dobLabel: "Fecha de Nacimiento:",
+                addressLabel: "Dirección:",
+                phoneLabel: "Número de Teléfono:",
+                emailLabel: "Correo Electrónico:",
+                occupationLabel: "Ocupación:",
+                debtInfoTitle: "Información de Deuda",
+                oweDebtQuestion: "¿Debe alguna deuda?",
+                actionAgainstYouQuestion: "¿Hay alguna acción legal en su contra (ej. demanda, embargo)?",
+                judgmentEnteredQuestion: "¿Se ha dictado una sentencia en su contra?",
+                debtCollectionNoticeQuestion: "¿Tiene un aviso de cobro de deudas?",
+                paymentPlanQuestion: "¿Puede establecer un plan de pagos?",
+                paymentPlanAmountLabel: "Si es así, ¿cuánto por mes?",
+                otherDebtLabel: "¿Debe otras deudas? Por favor, describa:",
+                retainerAgreementTitle: "Acuerdo de Retención (Ejemplo para Consumidor)",
+                retainerIntro: "Este Acuerdo de Retención (\"Acuerdo\") se celebra entre [Nombre del Bufete de Abogados] (\"Abogado\") y <span id=\"clientNamePlaceholder\" class=\"font-bold\">[Nombre Completo del Cliente]</span> (\"Cliente\") en esta fecha <span id=\"currentDatePlaceholder\" class=\"font-bold\"></span>.",
+                scopeOfServicesTitle: "1. Alcance de los Servicios:",
+                scopeOfServicesContent: "El Abogado acepta proporcionar servicios legales al Cliente con respecto al asunto de la resolución de deudas y acciones legales relacionadas. Esto puede incluir, entre otros, la revisión de avisos de cobro de deudas, la negociación con los acreedores y la representación del Cliente en los tribunales si es necesario. Este acuerdo no cubre los procedimientos de bancarrota a menos que se acuerde específicamente por escrito.",
+                attorneyFeesTitle: "2. Honorarios del Abogado:",
+                attorneyFeesContent1: "El Cliente acepta pagar al Abogado una tarifa de retención no reembolsable de <span class=\"font-bold\">$500.00</span> al firmar este Acuerdo. Esta retención se aplicará a los honorarios por hora de los servicios prestados a razón de <span class=\"font-bold\">$250.00</span> por hora para el tiempo del abogado y <span class=\"font-bold\">$100.00</span> por hora para el tiempo del paralegal.",
+                attorneyFeesContent2: "El Cliente será facturado mensualmente por los servicios prestados y los costos incurridos. Los pagos vencen al recibir la factura. Se pueden cobrar intereses sobre los saldos vencidos a razón de <span class=\"font-bold\">1.5%</span> anual.",
+                costsAndExpensesTitle: "3. Costos y Gastos:",
+                costsAndExpensesContent: "El Cliente es responsable de todos los costos y gastos incurridos en relación con este asunto, incluyendo, entre otros, tarifas de presentación, costos judiciales, costos de deposición, honorarios de peritos y gastos de viaje. El Abogado buscará la aprobación del Cliente para cualquier gasto significativo antes de incurrir en ellos.",
+                terminationTitle: "4. Terminación:",
+                terminationContent: "Cualquiera de las partes puede rescindir este Acuerdo en cualquier momento mediante notificación por escrito. Tras la rescisión, el Cliente será responsable de todos los honorarios y costos incurridos hasta la fecha de rescisión. Cualquier porción no ganada de la retención será reembolsada al Cliente.",
+                disclaimerTitle: "5. Descargo de Responsabilidad:",
+                disclaimerContent: "El Abogado no ofrece garantías con respecto al resultado de este asunto. Todas las declaraciones hechas por el Abogado son solo opiniones.",
+                agreementAcknowledgement: "Al firmar a continuación, el Cliente reconoce que ha leído, entendido y aceptado los términos de este Acuerdo de Retención.",
+                clientSignatureLabel: "Firma del Cliente:",
+                dateLabel: "Fecha:",
+                creditReportAuthTitle: "Autorización para Solicitar Informe de Crédito",
+                creditReportAuthIntro: "Yo, <span id=\"authClientNamePlaceholder\" class=\"font-bold\">[Nombre Completo del Cliente]</span>, por la presente autorizo a [Nombre del Bufete de Abogados] a obtener una copia de mi informe de crédito de una o más agencias de informes de consumidores con el propósito de evaluar mi situación financiera relacionada con la resolución de deudas.",
+                creditReportAuthPurpose: "Entiendo que esta autorización tiene el único propósito de proporcionarme servicios legales y no se utilizará para ningún otro fin.",
+                creditReportAuthRelease: "Libero a [Nombre del Bufete de Abogados] y a cualquier agencia de informes de consumidores de cualquier responsabilidad por obtener o proporcionar dicha información.",
+                creditReportAuthConsent: "Esta autorización permanecerá en vigor durante la duración de mi representación por [Nombre del Bufete de Abogados] o hasta que la revoque por escrito.",
+                socialMediaWaiverTitle: "Formulario de Exención y Autorización de Redes Sociales",
+                socialMediaWaiverIntro: "Yo, <span id=\"socialClientNamePlaceholder\" class=\"font-bold\">[Nombre Completo del Cliente]</span>, entiendo que las redes sociales (ej. Facebook, X (anteriormente Twitter), Instagram, LinkedIn, etc.) pueden ser una fuente de información relevante para mi asunto legal.",
+                socialMediaWaiverWarning: "Reconozco que cualquier información que publique o que se publique sobre mí en plataformas de redes sociales, incluidas fotos, videos y comentarios, puede ser descubierta y utilizada como evidencia en mi caso legal.",
+                socialMediaWaiverRecommendation: "Entiendo que se recomienda encarecidamente que me abstenga de publicar cualquier información sobre mi caso, mi situación financiera o mis actividades en las redes sociales mientras mi caso esté pendiente. También entiendo que debo revisar mi configuración de privacidad en todas las cuentas de redes sociales para garantizar la máxima privacidad.",
+                socialMediaWaiverAuthorization: "Autorizo a [Nombre del Bufete de Abogados] a revisar mis perfiles y contenido de redes sociales disponibles públicamente si se considera necesario para mi representación legal. Entiendo que [Nombre del Bufete de Abogados] no intentará obtener acceso no autorizado a mis cuentas privadas de redes sociales.",
+                socialMediaWaiverRelease: "Libero a [Nombre del Bufete de Abogados] de cualquier responsabilidad por cualquier consecuencia adversa que pueda surgir de la información encontrada en mis perfiles de redes sociales.",
+                submitButton: "Enviar Formulario",
+                yes: "Sí",
+                no: "No",
+                retainerFeeAmount: "$500.00",
+                hourlyRate: "$250.00",
+                paralegalRate: "$100.00",
+                interestRate: "1.5%"
+            },
+            zh: {
+                formTitle: "法律咨询表格",
+                personalInfoTitle: "个人信息",
+                fullNameLabel: "全名:",
+                dobLabel: "出生日期:",
+                addressLabel: "地址:",
+                phoneLabel: "电话号码:",
+                emailLabel: "电子邮件地址:",
+                occupationLabel: "职业:",
+                debtInfoTitle: "债务信息",
+                oweDebtQuestion: "您是否欠债？",
+                actionAgainstYouQuestion: "您是否面临任何法律诉讼（例如，诉讼、扣押）？",
+                judgmentEnteredQuestion: "是否有判决对您生效？",
+                debtCollectionNoticeQuestion: "您是否有债务催收通知？",
+                paymentPlanQuestion: "您能否制定还款计划？",
+                paymentPlanAmountLabel: "如果能，每月支付多少？",
+                otherDebtLabel: "您是否欠其他债务？请描述：",
+                retainerAgreementTitle: "聘用协议（消费者示例）",
+                retainerIntro: "本聘用协议（“协议”）由[律师事务所名称]（“律师”）与<span id=\"clientNamePlaceholder\" class=\"font-bold\">[客户全名]</span>（“客户”）于<span id=\"currentDatePlaceholder\" class=\"font-bold\"></span>签订。",
+                scopeOfServicesTitle: "1. 服务范围：",
+                scopeOfServicesContent: "律师同意就债务解决及相关法律诉讼事宜向客户提供法律服务。这可能包括但不限于审查债务催收通知、与债权人谈判以及在必要时代表客户出庭。除非另有书面约定，本协议不涵盖破产程序。",
+                attorneyFeesTitle: "2. 律师费：",
+                attorneyFeesContent1: "客户同意在本协议签署时向律师支付不可退还的聘用费<span class=\"font-bold\">$500.00</span>。此聘用费将用于抵扣按小时计费的服务费用，律师时间费率为每小时<span class=\"font-bold\">$250.00</span>，律师助理时间费率为每小时<span class=\"font-bold\">$100.00</span>。",
+                attorneyFeesContent2: "律师将每月向客户收取已提供服务和已产生费用的账单。付款应在收到发票后立即支付。逾期余额可能会按每年<span class=\"font-bold\">1.5%</span>的利率收取利息。",
+                costsAndExpensesTitle: "3. 成本和费用：",
+                costsAndExpensesContent: "客户负责与本事项相关的所有成本和费用，包括但不限于备案费、诉讼费、证词费、专家证人费和差旅费。律师将在产生任何重大费用之前征求客户的批准。",
+                terminationTitle: "4. 终止：",
+                terminationContent: "任何一方均可随时通过书面通知终止本协议。终止后，客户将负责截至终止日期所产生的所有费用和成本。聘用费中未赚取的部分将退还给客户。",
+                disclaimerTitle: "5. 免责声明：",
+                disclaimerContent: "律师不保证本事项的结果。律师所作的所有陈述仅为意见。",
+                agreementAcknowledgement: "通过在下方签名，客户确认已阅读、理解并同意本聘用协议的条款。",
+                clientSignatureLabel: "客户签名:",
+                dateLabel: "日期:",
+                creditReportAuthTitle: "授权请求信用报告",
+                creditReportAuthIntro: "我，<span id=\"authClientNamePlaceholder\" class=\"font-bold\">[客户全名]</span>，特此授权[律师事务所名称]从一家或多家消费者报告机构获取我的信用报告副本，以评估我与债务解决相关的财务状况。",
+                creditReportAuthPurpose: "我理解此授权仅用于向我提供法律服务，不得用于任何其他目的。",
+                creditReportAuthRelease: "我免除[律师事务所名称]和任何消费者报告机构因获取或提供此类信息而产生的任何责任。",
+                creditReportAuthConsent: "本授权在我受[律师事务所名称]代表期间或直至我书面撤销之前保持有效。",
+                socialMediaWaiverTitle: "社交媒体豁免和授权书",
+                socialMediaWaiverIntro: "我，<span id=\"socialClientNamePlaceholder\" class=\"font-bold\">[客户全名]</span>，理解社交媒体（例如，Facebook、X（以前的Twitter）、Instagram、LinkedIn等）可能是与我的法律事务相关的信息来源。",
+                socialMediaWaiverWarning: "我承认我在社交媒体平台上发布或他人发布的关于我的任何信息，包括照片、视频和评论，都可能被发现并用作我法律案件的证据。",
+                socialMediaWaiverRecommendation: "我理解强烈建议我在案件审理期间避免在社交媒体上发布任何关于我的案件、我的财务状况或我的活动的信息。我还理解我应该检查所有社交媒体账户的隐私设置，以确保最大的隐私。",
+                socialMediaWaiverAuthorization: "我授权[律师事务所名称]在必要时审查我的公开社交媒体资料和内容，以进行我的法律代理。我理解[律师事务所名称]不会试图未经授权访问我的私人社交媒体账户。",
+                socialMediaWaiverRelease: "我免除[律师事务所名称]因在我的社交媒体资料中发现的信息而可能产生的任何不利后果的任何责任。",
+                submitButton: "提交表格",
+                yes: "是",
+                no: "否",
+                retainerFeeAmount: "$500.00",
+                hourlyRate: "$250.00",
+                paralegalRate: "$100.00",
+                interestRate: "1.5%"
+            },
+            ko: {
+                formTitle: "법률 상담 양식",
+                personalInfoTitle: "개인 정보",
+                fullNameLabel: "성명:",
+                dobLabel: "생년월일:",
+                addressLabel: "주소:",
+                phoneLabel: "전화번호:",
+                emailLabel: "이메일 주소:",
+                occupationLabel: "직업:",
+                debtInfoTitle: "채무 정보",
+                oweDebtQuestion: "빚을 지고 있습니까?",
+                actionAgainstYouQuestion: "귀하에 대한 법적 조치(예: 소송, 압류)가 있습니까?",
+                judgmentEnteredQuestion: "귀하에 대한 판결이 내려졌습니까?",
+                debtCollectionNoticeQuestion: "채무 독촉 통지서를 가지고 있습니까?",
+                paymentPlanQuestion: "할부 상환 계획을 체결할 수 있습니까?",
+                paymentPlanAmountLabel: "그렇다면, 한 달에 얼마입니까?",
+                otherDebtLabel: "다른 빚이 있습니까? 설명해 주십시오:",
+                retainerAgreementTitle: "위임 계약 (소비자 예시)",
+                retainerIntro: "본 위임 계약(\"계약\")은 [법률 사무소 이름](\"변호사\")과 <span id=\"clientNamePlaceholder\" class=\"font-bold\">[고객 성명]</span>(\"고객\") 간에 <span id=\"currentDatePlaceholder\" class=\"font-bold\"></span>에 체결됩니다.",
+                scopeOfServicesTitle: "1. 서비스 범위:",
+                scopeOfServicesContent: "변호사는 채무 해결 및 관련 법적 조치 문제에 관하여 고객에게 법률 서비스를 제공하는 데 동의합니다. 여기에는 채무 독촉 통지서 검토, 채권자와의 협상, 필요한 경우 법정에서 고객 대리 등이 포함되지만 이에 국한되지 않습니다. 본 계약은 서면으로 특별히 합의되지 않는 한 파산 절차를 다루지 않습니다.",
+                attorneyFeesTitle: "2. 변호사 수수료:",
+                attorneyFeesContent1: "고객은 본 계약 체결 시 변호사에게 환불 불가능한 착수금 <span class=\"font-bold\">$500.00</span>을 지불하는 데 동의합니다. 이 착수금은 변호사 시간당 <span class=\"font-bold\">$250.00</span>, 법률 보조원 시간당 <span class=\"font-bold\">$100.00</span>의 요율로 제공된 서비스에 대한 시간당 수수료에 적용됩니다.",
+                attorneyFeesContent2: "고객은 제공된 서비스 및 발생한 비용에 대해 매월 청구됩니다. 지불은 청구서 수령 즉시 이루어져야 합니다. 연체 잔액에는 연 <span=\"font-bold\">1.5%</span>의 이자가 부과될 수 있습니다.",
+                costsAndExpensesTitle: "3. 비용 및 경비:",
+                costsAndExpensesContent: "고객은 본 건과 관련하여 발생한 모든 비용 및 경비에 대한 책임이 있으며, 여기에는 제출 수수료, 법원 비용, 증언 비용, 전문가 증인 수수료 및 출장 경비가 포함되지만 이에 국한되지 않습니다. 변호사는 중대한 비용이 발생하기 전에 고객의 승인을 구할 것입니다.",
+                terminationTitle: "4. 해지:",
+                terminationContent: "어느 당사자든 서면 통지함으로써 언제든지 본 계약을 해지할 수 있습니다. 해지 시 고객은 해지일까지 발생한 모든 수수료 및 비용에 대한 책임이 있습니다. 착수금 중 미지급된 부분은 고객에게 환불됩니다.",
+                disclaimerTitle: "5. 면책 조항:",
+                disclaimerContent: "변호사는 본 건의 결과에 대해 어떠한 보장도 하지 않습니다. 변호사가 한 모든 진술은 의견일 뿐입니다.",
+                agreementAcknowledgement: "아래에 서명함으로써 고객은 본 위임 계약의 조건을 읽고 이해했으며 동의했음을 인정합니다.",
+                clientSignatureLabel: "고객 서명:",
+                dateLabel: "날짜:",
+                creditReportAuthTitle: "신용 보고서 요청 권한",
+                creditReportAuthIntro: "저, <span id=\"authClientNamePlaceholder\" class=\"font-bold\">[고객 성명]</span>은 [법률 사무소 이름]이 채무 해결과 관련된 저의 재정 상황을 평가하기 위해 하나 이상의 소비자 보고 기관으로부터 저의 신용 보고서 사본을 얻는 것을 허가합니다.",
+                creditReportAuthPurpose: "본 권한은 저에게 법률 서비스를 제공하기 위한 유일한 목적이며 다른 목적으로 사용되지 않을 것임을 이해합니다.",
+                creditReportAuthRelease: "저는 [법률 사무소 이름]과 모든 소비자 보고 기관이 그러한 정보를 얻거나 제공하는 것에 대한 모든 책임으로부터 면제합니다.",
+                creditReportAuthConsent: "본 권한은 [법률 사무소 이름]에 의한 저의 대리 기간 동안 또는 제가 서면으로 철회할 때까지 유효합니다.",
+                socialMediaWaiverTitle: "소셜 미디어 면책 및 승인 양식",
+                socialMediaWaiverIntro: "저, <span id=\"socialClientNamePlaceholder\" class=\"font-bold\">[고객 성명]</span>은 소셜 미디어(예: Facebook, X(이전 Twitter), Instagram, LinkedIn 등)가 저의 법적 문제와 관련될 수 있는 정보의 출처가 될 수 있음을 이해합니다.",
+                socialMediaWaiverWarning: "저는 제가 소셜 미디어 플랫폼에 게시하거나 저에 대해 게시된 모든 정보(사진, 비디오, 댓글 포함)가 발견되어 저의 법적 사건의 증거로 사용될 수 있음을 인정합니다.",
+                socialMediaWaiverRecommendation: "저는 제 사건이 계류 중인 동안 제 사건, 재정 상황 또는 활동에 대한 정보를 소셜 미디어에 게시하는 것을 삼가는 것이 강력히 권장됨을 이해합니다. 또한 저는 모든 소셜 미디어 계정의 개인 정보 설정을 검토하여 최대한의 개인 정보를 보장해야 함을 이해합니다.",
+                socialMediaWaiverAuthorization: "저는 [법률 사무소 이름]이 저의 법률 대리에 필요하다고 판단되는 경우 저의 공개 소셜 미디어 프로필 및 콘텐츠를 검토하는 것을 허가합니다. 저는 [법률 사무소 이름]이 저의 개인 소셜 미디어 계정에 무단으로 접근하려고 시도하지 않을 것임을 이해합니다.",
+                socialMediaWaiverRelease: "저는 [법률 사무소 이름]이 저의 소셜 미디어 프로필에서 발견된 정보로 인해 발생할 수 있는 모든 불리한 결과에 대한 모든 책임으로부터 면제합니다.",
+                submitButton: "양식 제출",
+                yes: "예",
+                no: "아니요",
+                retainerFeeAmount: "$500.00",
+                hourlyRate: "$250.00",
+                paralegalRate: "$100.00",
+                interestRate: "1.5%"
+            },
+            ja: {
+                formTitle: "法律相談フォーム",
+                personalInfoTitle: "個人情報",
+                fullNameLabel: "氏名:",
+                dobLabel: "生年月日:",
+                addressLabel: "住所:",
+                phoneLabel: "電話番号:",
+                emailLabel: "メールアドレス:",
+                occupationLabel: "職業:",
+                debtInfoTitle: "債務情報",
+                oweDebtQuestion: "借金はありますか？",
+                actionAgainstYouQuestion: "あなたに対して法的措置（例：訴訟、差し押さえ）が取られていますか？",
+                judgmentEnteredQuestion: "判決があなたに対して下されましたか？",
+                debtCollectionNoticeQuestion: "債権回収通知書を持っていますか？",
+                paymentPlanQuestion: "支払い計画を立てることは可能ですか？",
+                paymentPlanAmountLabel: "もし可能なら、月々いくらですか？",
+                otherDebtLabel: "他に借金はありますか？詳しく説明してください：",
+                retainerAgreementTitle: "委任契約（消費者向け例）",
+                retainerIntro: "この委任契約（「本契約」）は、[法律事務所名]（「弁護士」）と<span id=\"clientNamePlaceholder\" class=\"font-bold\">[クライアント氏名]</span>（「クライアント」）の間で、本日<span id=\"currentDatePlaceholder\" class=\"font-bold\"></span>締結されます。",
+                scopeOfServicesTitle: "1. サービス範囲：",
+                scopeOfServicesContent: "弁護士は、債務整理および関連する法的措置に関してクライアントに法的サービスを提供することに同意します。これには、債権回収通知の確認、債権者との交渉、必要に応じた法廷でのクライアントの代理が含まれますが、これらに限定されません。本契約は、別途書面で合意されない限り、破産手続きを対象としません。",
+                attorneyFeesTitle: "2. 弁護士費用：",
+                attorneyFeesContent1: "クライアントは、本契約締結時に弁護士に返金不可の着手金として<span class=\"font-bold\">$500.00</span>を支払うことに同意します。この着手金は、弁護士の時間あたり<span class=\"font-bold\">$250.00</span>、パラリーガルの時間あたり<span class=\"font-bold\">$100.00</span>のサービスに対する時間料金に充当されます。",
+                attorneyFeesContent2: "クライアントには、提供されたサービスと発生した費用について毎月請求されます。支払いは請求書受領後直ちに行うものとします。延滞残高には年率<span class=\"font-bold\">1.5%</span>の利息が課される場合があります。",
+                costsAndExpensesTitle: "3. 費用と経費：",
+                costsAndExpensesContent: "クライアントは、本件に関連して発生するすべての費用と経費（提出費用、訴訟費用、証言費用、専門家証人費用、旅費などを含むがこれらに限定されない）について責任を負います。弁護士は、重要な費用を発生させる前にクライアントの承認を求めます。",
+                terminationTitle: "4. 解除：",
+                terminationContent: "いずれの当事者も、書面による通知によりいつでも本契約を解除できます。解除後、クライアントは解除日までに発生したすべての費用と経費について責任を負います。着手金のうち未稼得の部分はクライアントに返金されます。",
+                disclaimerTitle: "5. 免責事項：",
+                disclaimerContent: "弁護士は、本件の結果についていかなる保証も行いません。弁護士が行うすべての声明は単なる意見です。",
+                agreementAcknowledgement: "以下に署名することにより、クライアントは本委任契約の条項を読み、理解し、同意したことを認めます。",
+                clientSignatureLabel: "クライアント署名:",
+                dateLabel: "日付:",
+                creditReportAuthTitle: "信用報告書請求の承認",
+                creditReportAuthIntro: "私、<span id=\"authClientNamePlaceholder\" class=\"font-bold\">[クライアント氏名]</span>は、[法律事務所名]が債務整理に関連する私の財政状況を評価する目的で、一つまたは複数の消費者信用情報機関から私の信用報告書のコピーを取得することをここに承認します。",
+                creditReportAuthPurpose: "私は、この承認が私に法的サービスを提供することのみを目的としており、他の目的には使用されないことを理解しています。",
+                creditReportAuthRelease: "私は、[法律事務所名]および消費者信用情報機関が、そのような情報を取得または提供することによって生じるいかなる責任からも免除します。",
+                creditReportAuthConsent: "この承認は、[法律事務所名]による私の代理期間中、または私が書面で撤回するまで有効とします。",
+                socialMediaWaiverTitle: "ソーシャルメディア免責および承認書",
+                socialMediaWaiverIntro: "私、<span id=\"socialClientNamePlaceholder\" class=\"font-bold\">[クライアント氏名]</span>は、ソーシャルメディア（例：Facebook、X（旧Twitter）、Instagram、LinkedInなど）が私の法的問題に関連する情報の源となり得ることを理解しています。",
+                socialMediaWaiverWarning: "私は、私がソーシャルメディアプラットフォームに投稿した、または私について投稿された情報（写真、ビデオ、コメントを含む）が、私の訴訟において発見され、証拠として使用される可能性があることを認識しています。",
+                socialMediaWaiverRecommendation: "私は、訴訟係争中に私の事件、私の経済状況、または私の活動に関する情報をソーシャルメディアに投稿することを強く控えることを推奨されていることを理解しています。また、私はすべてのソーシャルメディアアカウントのプライバシー設定を確認し、最大限のプライバシーを確保する必要があることも理解しています。",
+                socialMediaWaiverAuthorization: "私は、[法律事務所名]が私の法的代理のために必要と判断した場合、私の公開されているソーシャルメディアプロフィールとコンテンツを確認することを承認します。[法律事務所名]が私のプライベートなソーシャルメディアアカウントへの不正アクセスを試みないことを理解しています。",
+                socialMediaWaiverRelease: "私は、[法律事務所名]が私のソーシャルメディアプロフィールで見つかった情報から生じる可能性のあるいかなる不利な結果に対しても責任を負わないことを免除します。",
+                submitButton: "フォームを送信",
+                yes: "はい",
+                no: "いいえ",
+                retainerFeeAmount: "$500.00",
+                hourlyRate: "$250.00",
+                paralegalRate: "$100.00",
+                interestRate: "1.5%"
+            },
+            ar: {
+                formTitle: "نموذج استبيان قانوني",
+                personalInfoTitle: "المعلومات الشخصية",
+                fullNameLabel: "الاسم الكامل:",
+                dobLabel: "تاريخ الميلاد:",
+                addressLabel: "العنوان:",
+                phoneLabel: "رقم الهاتف:",
+                emailLabel: "عنوان البريد الإلكتروني:",
+                occupationLabel: "المهنة:",
+                debtInfoTitle: "معلومات الدين",
+                oweDebtQuestion: "هل أنت مدين؟",
+                actionAgainstYouQuestion: "هل هناك أي إجراء قانوني ضدك (مثل دعوى قضائية، حجز)؟",
+                judgmentEnteredQuestion: "هل صدر حكم ضدك؟",
+                debtCollectionNoticeQuestion: "هل لديك إشعار بتحصيل الديون؟",
+                paymentPlanQuestion: "هل يمكنك الدخول في خطة سداد؟",
+                paymentPlanAmountLabel: "إذا كان نعم، فكم شهريًا؟",
+                otherDebtLabel: "هل تدين بديون أخرى؟ يرجى الوصف:",
+                retainerAgreementTitle: "اتفاقية التوكيل (مثال للمستهلك)",
+                retainerIntro: "تم إبرام اتفاقية التوكيل هذه (\"الاتفاقية\") بين [اسم مكتب المحاماة] (\"المحامي\") و<span id=\"clientNamePlaceholder\" class=\"font-bold\">[الاسم الكامل للعميل]</span> (\"العميل\") في هذا التاريخ <span id=\"currentDatePlaceholder\" class=\"font-bold\"></span>.",
+                scopeOfServicesTitle: "1. نطاق الخدمات:",
+                scopeOfServicesContent: "يوافق المحامي على تقديم الخدمات القانونية للعميل فيما يتعلق بمسألة تسوية الديون والإجراءات القانونية ذات الصلة. قد يشمل ذلك، على سبيل المثال لا الحصر، مراجعة إشعارات تحصيل الديون، والتفاوض مع الدائنين، وتمثيل العميل في المحكمة إذا لزم الأمر. لا تغطي هذه الاتفاقية إجراءات الإفلاس ما لم يتم الاتفاق عليها كتابةً بشكل خاص.",
+                attorneyFeesTitle: "2. أتعاب المحامي:",
+                attorneyFeesContent1: "يوافق العميل على دفع رسوم توكيل غير قابلة للاسترداد قدرها <span class=\"font-bold\">500.00 دولارًا</span> للمحامي عند توقيع هذه الاتفاقية. سيتم تطبيق هذا التوكيل مقابل الرسوم بالساعة للخدمات المقدمة بمعدل <span=\"font-bold\">250.00 دولارًا</span> في الساعة لوقت المحامي و<span class=\"font-bold\">100.00 دولارًا</span> في الساعة لوقت المساعد القانوني.",
+                attorneyFeesContent2: "سيتم إرسال فاتورة للعميل شهريًا مقابل الخدمات المقدمة والتكاليف المتكبدة. الدفعات مستحقة عند استلام الفاتورة. قد يتم فرض فائدة على الأرصدة المتأخرة بمعدل <span class=\"font-bold\">1.5%</span> سنويًا.",
+                costsAndExpensesTitle: "3. التكاليف والمصاريف:",
+                costsAndExpensesContent: "العميل مسؤول عن جميع التكاليف والمصاريف المتكبدة فيما يتعلق بهذه المسألة، بما في ذلك على سبيل المثال لا الحصر رسوم الإيداع، وتكاليف المحكمة، وتكاليف الإيداع، وأتعاب الخبراء، ونفقات السفر. سيسعى المحامي للحصول على موافقة العميل على أي نفقات كبيرة قبل تكبدها.",
+                terminationTitle: "4. الإنهاء:",
+                terminationContent: "يجوز لأي من الطرفين إنهاء هذه الاتفاقية في أي وقت عن طريق تقديم إشعار كتابي. عند الإنهاء، سيكون العميل مسؤولاً عن جميع الرسوم والتكاليف المتكبدة حتى تاريخ الإنهاء. سيتم رد أي جزء غير مكتسب من التوكيل للعميل.",
+                disclaimerTitle: "5. إخلاء المسؤولية:",
+                disclaimerContent: "لا يقدم المحامي أي ضمانات بشأن نتيجة هذه المسألة. جميع البيانات التي يدلي بها المحامي هي مجرد آراء.",
+                agreementAcknowledgement: "بتوقيع العميل أدناه، يقر بأنه قد قرأ وفهم ووافق على شروط اتفاقية التوكيل هذه.",
+                clientSignatureLabel: "توقيع العميل:",
+                dateLabel: "التاريخ:",
+                creditReportAuthTitle: "تفويض لطلب تقرير ائتماني",
+                creditReportAuthIntro: "أنا، <span id=\"authClientNamePlaceholder\" class=\"font-bold\">[الاسم الكامل للعميل]</span>، أفوض بموجب هذا [اسم مكتب المحاماة] للحصول على نسخة من تقرير الائتمان الخاص بي من وكالة أو أكثر من وكالات تقارير المستهلك لغرض تقييم وضعي المالي المتعلق بتسوية الديون.",
+                creditReportAuthPurpose: "أفهم أن هذا التفويض هو لغرض وحيد هو تقديم الخدمات القانونية لي ولن يستخدم لأي غرض آخر.",
+                creditReportAuthRelease: "أخلي مسؤولية [اسم مكتب المحاماة] وأي وكالة لتقارير المستهلك من أي مسؤولية عن الحصول على هذه المعلومات أو تقديمها.",
+                creditReportAuthConsent: "يبقى هذا التفويض ساري المفعول طوال مدة تمثيلي من قبل [اسم مكتب المحاماة] أو حتى يتم إلغاؤه كتابةً من قبلي.",
+                socialMediaWaiverTitle: "نموذج إخلاء مسؤولية وتفويض وسائل التواصل الاجتماعي",
+                socialMediaWaiverIntro: "أنا، <span id=\"socialClientNamePlaceholder\" class=\"font-bold\">[الاسم الكامل للعميل]</span>، أفهم أن وسائل التواصل الاجتماعي (مثل Facebook، X (تويتر سابقًا)، Instagram، LinkedIn، إلخ) يمكن أن تكون مصدرًا للمعلومات التي قد تكون ذات صلة بمسألتي القانونية.",
+                socialMediaWaiverWarning: "أقر بأن أي معلومات أنشرها أو يتم نشرها عني على منصات التواصل الاجتماعي، بما في ذلك الصور ومقاطع الفيديو والتعليقات، قد تكون قابلة للاكتشاف وتستخدم كدليل في قضيتي القانونية.",
+                socialMediaWaiverRecommendation: "أفهم أنه يوصى بشدة بالامتناع عن نشر أي معلومات حول قضيتي، أو وضعي المالي، أو أنشطتي على وسائل التواصل الاجتماعي أثناء انتظار قضيتي. كما أفهم أنه يجب علي مراجعة إعدادات الخصوصية الخاصة بي على جميع حسابات وسائل التواصل الاجتماعي لضمان أقصى قدر من الخصوصية.",
+                socialMediaWaiverAuthorization: "أفوض [اسم مكتب المحاماة] بمراجعة ملفاتي الشخصية ومحتوى وسائل التواصل الاجتماعي المتاحة للجمهور إذا اعتبر ذلك ضروريًا لتمثيلي القانوني. أفهم أن [اسم مكتب المحاماة] لن يحاول الوصول غير المصرح به إلى حساباتي الخاصة على وسائل التواصل الاجتماعي.",
+                socialMediaWaiverRelease: "أخلي مسؤولية [اسم مكتب المحاماة] من أي مسؤولية عن أي عواقب سلبية قد تنشأ عن المعلومات الموجودة في ملفاتي الشخصية على وسائل التواصل الاجتماعي.",
+                submitButton: "إرسال النموذج",
+                yes: "نعم",
+                no: "لا",
+                retainerFeeAmount: "$500.00",
+                hourlyRate: "$250.00",
+                paralegalRate: "$100.00",
+                interestRate: "1.5%"
+            }
+        };
+
+        // Function to update the content based on the selected language
+        function changeLanguage() {
+            const lang = document.getElementById('language-select').value;
+            const currentTranslations = translations[lang];
+
+            // Keys that contain inner HTML (like spans for placeholders or bolded amounts)
+            const htmlContentKeys = [
+                'retainerIntro',
+                'creditReportAuthIntro',
+                'socialMediaWaiverIntro',
+                'retainerFeeAmount',
+                'hourlyRate',
+                'paralegalRate',
+                'interestRate'
+            ];
+
+            // Update elements with data-lang-key attribute
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (currentTranslations[key]) {
+                    // Use innerHTML for content that contains nested HTML (like spans)
+                    if (htmlContentKeys.includes(key)) {
+                        element.innerHTML = currentTranslations[key];
+                    } else {
+                        // Use textContent for plain text elements
+                        element.textContent = currentTranslations[key];
+                    }
+                }
+            });
+
+            // Update placeholders for client name and current date after the content is set
+            updatePlaceholders();
+        }
+
+        // Function to update client name and current date placeholders
+        function updatePlaceholders() {
+            const fullNameInput = document.getElementById('fullName');
+            // Ensure elements exist before trying to update them
+            const clientNamePlaceholder = document.getElementById('clientNamePlaceholder');
+            const authClientNamePlaceholder = document.getElementById('authClientNamePlaceholder');
+            const socialClientNamePlaceholder = document.getElementById('socialClientNamePlaceholder');
+            const currentDatePlaceholder = document.getElementById('currentDatePlaceholder');
+
+            const clientName = fullNameInput ? fullNameInput.value : "[Client Full Name]";
+            const currentDate = new Date().toLocaleDateString(document.getElementById('language-select').value);
+
+            if (clientNamePlaceholder) clientNamePlaceholder.textContent = clientName;
+            if (authClientNamePlaceholder) authClientNamePlaceholder.textContent = clientName;
+            if (socialClientNamePlaceholder) socialClientNamePlaceholder.textContent = clientName;
+            if (currentDatePlaceholder) currentDatePlaceholder.textContent = currentDate;
+        }
+
+        // Event listener for full name input to update placeholders dynamically
+        document.getElementById('fullName').addEventListener('input', updatePlaceholders);
+
+        // Set initial language and update placeholders on page load
+        window.onload = function() {
+            changeLanguage(); // Set initial language and content
+            // updatePlaceholders is already called inside changeLanguage, so no need to call it again here.
+        };
+
+        // Handle form submission (for demonstration, just logs to console)
+        document.getElementById('intakeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(event.target);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            console.log("Form Submitted:", formObject);
+            // Using alert for demonstration, replace with a custom modal in a real app.
+            // IMPORTANT: Do NOT use alert() or confirm() in production code for Canvas.
+            // Use a custom modal UI instead.
+            const messageBox = document.createElement('div');
+            messageBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 2rem;
+                border-radius: 0.75rem;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                z-index: 1000;
+                text-align: center;
+                max-width: 80%;
+                font-family: 'Inter', sans-serif;
+            `;
+            messageBox.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Form submitted successfully! Check the console for data.</p>
+                <button onclick="this.parentNode.remove()" class="px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors">OK</button>
+            `;
+            document.body.appendChild(messageBox);
+        });
+    </script>
+</body>
+</html>
+
